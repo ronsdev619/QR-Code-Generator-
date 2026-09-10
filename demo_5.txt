@@ -1,5 +1,0 @@
-Processing: 'Sugarplum_Fairy_Nightmare'
---------------------------------------------------
-1. bit stream
-[Logger] recorded transaction ID: ffebc407
-ERROR: Input is 25 bytes; version 1 level L holds at most 17 in byte mode.
