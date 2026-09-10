@@ -1,5 +1,0 @@
-Processing: 'From α to ɷ...'
---------------------------------------------------
-1. bit stream
-[Logger] recorded transaction ID: d8f59582
-ERROR: 'latin-1' codec can't encode character '\u03b1' in position 5: ordinal not in range(256)
