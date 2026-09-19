@@ -33,3 +33,40 @@ qr_decoder.py  ── standalone, reverses qr_encoder.py + qr_matrix.py to read 
 | `qr_customizer.py` | Color/shape presets and accessibility validation, applied on top of the raw matrix |
 | `qr_gui.py` | Tkinter front end |
 | `qr_analytics.py` | CSV logging + matplotlib dashboards |
+## Demo
+
+`python qr_generator.py` runs five fixed test strings through the full pipeline and writes each console trace to `demo_1.txt`–`demo_5.txt`. They're deliberately chosen to exercise both the happy path and the input validation:
+
+| # | Input | Demonstrates |
+|---|---|---|
+| 1 | `known` | Baseline byte-mode encode |
+| 2 | `We've succeeded!` | Punctuation in the payload |
+| 3 | `~¡256_-_aA&ñ` | Extended Latin-1 characters (¡, ñ) |
+| 4 | `From α to ɷ...` | Rejected — Greek/IPA characters fall outside ISO-8859-1, so encoding raises a caught `UnicodeEncodeError` |
+| 5 | `Sugarplum_Fairy_Nightmare` | Rejected — 25 bytes exceeds the 17-character Version 1/Level L capacity |
+
+The last two fail on purpose: they show `qr_encoder.py`'s validation catching bad input and `qr_generator.py` logging it as a failed attempt (visible in the analytics dashboard) rather than crashing.
+
+## Limitations
+
+This is a Version 1 / ECC level L implementation only — the smallest QR symbol size, which caps input at **17 characters** in byte mode (ISO-8859-1). Larger versions, alphanumeric/numeric/kanji modes, and higher ECC levels aren't implemented. It's meant to demonstrate the algorithm clearly, not to replace a production QR library for real-world capacity needs.
+
+## Install & run
+
+```bash
+pip install -r requirements.txt
+
+# GUI
+python qr_gui.py
+
+# CLI demo — generates 5 sample QR codes, writes text-art output files,
+# and prints a recent-activity summary
+python qr_generator.py
+
+# Tests
+python -m unittest test_qr.py test_qr_logger.py -v
+```
+
+## License
+
+MIT — see [LICENSE](LICENSE).
