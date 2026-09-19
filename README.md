@@ -67,6 +67,3 @@ python qr_generator.py
 python -m unittest test_qr.py test_qr_logger.py -v
 ```
 
-## License
-
-MIT — see [LICENSE](LICENSE).
